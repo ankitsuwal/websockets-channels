@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+
+<h2>Signup</h2>
+
+<form name="signup-form" id="sigunp-form" method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  First name:<br>
+  <input type="text" name="firstname" value="Fist Name" id="first_name">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Last Name" id="last_name">
+  <br>
+  Email:<br>
+  <input type="text" name="email" value="Email" id="email">
+  <br>
+  Password:<br>
+  <input type="text" name="password" value="Password" id="password">
+  <br>
+  <br><br>
+  <input type="submit" value="Submit" id="submit_btn">
+</form> 
+
+</body>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#sigunp-form').submit(function(e){
+            e.preventDefault();
+            var $first_name = $("#first_name").val();
+            var $last_name = $("#last_name").val();
+            var $email = $("#email").val();
+            var $password = $("#password").val();
+
+            $.ajax({
+                method: 'POST',
+                data: {"first_name": $first_name, "last_name": $last_name, "email": $email, "password": $password },
+                url: "/chat/signup/",
+                dataType: 'json',
+                contentType: "application/json",
+                 
+                success: function(result) {
+                    alert(result)
+                },
+                error: function(result){
+                    
+                },
+            });
+        });
+    });    
+</script>
+</html>
